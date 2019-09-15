@@ -1,0 +1,35 @@
+name: "PR Checks"
+
+on: [pull_request, push]
+
+jobs:
+  check_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: yarn
+    - run: yarn build
+    - run: yarn test
+    - name: Check for uncommitted changes
+      # Ensure no changes, but ignore node_modules dir since dev/fresh ci deps installed.
+      run: |
+        git diff --exit-code --stat -- . ':!node_modules' \
+        || (echo "##[error] found changed files after build. please 'npm run build && npm run format'" \
+                 "and check in all changes" \
+            && exit 1)
+    - name: Deploy to tip
+      run: |
+        mv main.js main.js.new
+        cp package.json package.json.new
+        git checkout tip
+        mv package.json.new package.json
+
+        rm -Rf node_modules
+        yarn install --production
+        rm package.json
+        echo "JavaScript (TypeScript) actions" > README.md
+        mv main.js.new main.js
+        git add main.js node_modules README.md
+
+        git commit -a -m "update"
+        #git push

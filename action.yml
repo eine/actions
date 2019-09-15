@@ -1,0 +1,10 @@
+name: 'Self-labelling'
+description: 'Let PR authors to suggest labels/milestones'
+author: '1138-4EB'
+inputs:
+  repo-token:
+    description: 'Token for the repo. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
+    required: true
+runs:
+  using: 'node12'
+  main: 'main.js'
