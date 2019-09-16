@@ -31,5 +31,8 @@ jobs:
         mv main.js.new main.js
         git add main.js node_modules README.md
 
+        git config --local user.email "tip@gha"
+        git config --local user.name "GHA"
+
         git commit -a -m "update"
         #git push
