@@ -9,18 +9,3 @@ jobs:
     - uses: 1138-4EB/actions@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-        STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-        MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        JOB_CONTEXT: ${{ toJson(job) }}
-        RUNNER_CONTEXT: ${{ toJson(runner) }}
-        STEPS_CONTEXT: ${{ toJson(steps) }}
-      run: |
-          printf "%s\n" \
-          "GITHUB_CONTEXT: $GITHUB_CONTEXT" \
-          "STRATEGY_CONTEXT: $STRATEGY_CONTEXT" \
-          "MATRIX_CONTEXT: $MATRIX_CONTEXT" \
-          "JOB_CONTEXT: $JOB_CONTEXT" \
-          "RUNNER_CONTEXT: $RUNNER_CONTEXT" \
-          "STEPS_CONTEXT: $STEPS_CONTEXT"
