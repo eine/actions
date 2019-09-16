@@ -37,3 +37,43 @@ core.debug(`Hi!`);
 console.log('Hi console!');
 run();
 core.endGroup()
+
+/* pull_request:
+assigned
+unassigned
+labeled
+unlabeled
+opened
+edited
+closed
+reopened
+synchronize
+ready_for_review
+locked
+unlocked
+*/
+
+/* issues:
+opened
+edited
+deleted
+transferred
+pinned
+unpinned
+closed
+reopened
+assigned
+unassigned
+labeled
+unlabeled
+locked
+unlocked
+milestoned
+demilestoned
+*/
+
+/* issue_comment:
+created
+edited
+deleted
+*/

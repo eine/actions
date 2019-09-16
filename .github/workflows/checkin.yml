@@ -18,6 +18,8 @@ jobs:
                  "and check in all changes" \
             && exit 1)
     - name: Deploy to tip
+      env:
+        GHA_DEPLOY_KEY: ${{ secrets.GHA_DEPLOY_KEY }}
       run: |
         mv main.js main.js.new
         cp package.json package.json.new
@@ -35,4 +37,7 @@ jobs:
         git config --local user.name "GHA"
 
         git commit -a -m "update"
-        #git push
+
+        eval `ssh-agent -s`
+        echo "$GHA_DEPLOY_KEY" | ssh-add -
+        git push
