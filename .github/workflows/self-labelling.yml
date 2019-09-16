@@ -6,7 +6,7 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-latest
     steps:
-    - uses: 1138-4EB/actions@v1
+    - uses: 1138-4EB/actions@tip
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
     - env:
