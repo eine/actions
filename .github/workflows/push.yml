@@ -1,0 +1,21 @@
+name: "push"
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+
+    - run: bash -c 'echo $PATH'
+      shell: powershell
+
+    - run: bash -c 'uname -a'
+      shell: powershell
+
+    - run: bash -c 'where find'
+      shell: powershell
+
+    - run: bash -c 'find'
+      shell: powershell
