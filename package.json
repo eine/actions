@@ -28,9 +28,9 @@
     "@actions/core": "^1.2.6"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.28.2",
+    "@vercel/ncc": "^0.28.3",
     "eslint": "^7.24.0",
     "jest": "^26.1.0",
-    "webpack": "^5.31.2"
+    "webpack": "^5.32.0"
   }
 }
