@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "@vercel/ncc": "^0.28.6",
-    "eslint": "^7.29.0",
+    "eslint": "^7.30.0",
     "jest": "^27.0.6",
-    "webpack": "^5.41.1"
+    "webpack": "^5.42.0"
   }
 }
