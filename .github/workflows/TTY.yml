@@ -1,0 +1,101 @@
+name: TTY
+
+on: [push]
+
+jobs:
+
+  container:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.8-slim-buster
+    steps:
+    - uses: actions/checkout@v1
+    - run: |
+        pip3 install tox --progress-bar off
+        tox -e py38-test
+
+  container_t:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.8-slim-buster
+      options: -t
+    steps:
+    - uses: actions/checkout@v1
+    - run: |
+        pip3 install tox --progress-bar off
+        tox -e py38-test
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: docker run --rm -tv $(pwd):/src -w /src python:3.8-slim-buster bash -c "pip3 install tox --progress-bar off; tox -e py38-test"
+
+  docker_shell:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: mv run.sh /usr/share/rust/.cargo/bin/run.sh
+    - shell: ./run.sh {0}
+      run: |
+        pip3 install tox --progress-bar off
+        tox -e py38-test
+
+  host:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - uses: actions/checkout@v1
+    - run: |
+        pip3 install tox
+        tox -e py37-test
+
+  invoke:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - uses: actions/checkout@v1
+    - run: |
+        pip3 install tox invoke
+        python -c 'from invoke import run; run("tox -e py37-test", pty=True, echo=True)'
+
+  invoke_runpy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - uses: actions/checkout@v1
+    - run: |
+        pip3 install tox invoke
+        ./run.py tox -e py37-test
+
+  invoke_ptypy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - uses: actions/checkout@v1
+    - run: mv pty.py /usr/share/rust/.cargo/bin/pty.py
+    - shell: ./pty.py {0}
+      run: |
+        pip3 install tox invoke
+        tox -e py37-test
+
+  invoke_ptysh:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - uses: actions/checkout@v1
+    - run: mv pty.py pty.sh /usr/share/rust/.cargo/bin/
+    - shell: ./pty.sh {0}
+      run: |
+        pip3 install tox
+        tox -e py37-test
