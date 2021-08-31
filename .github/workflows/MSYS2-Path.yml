@@ -20,11 +20,11 @@ jobs:
         echo '#!/usr/bin/env bash' > /c/ghcup/bin/mytool
         echo 'echo HELLO' >> /c/ghcup/bin/mytool
 
-    - run: echo $PATH
+        echo 'export PATH="$HOME/.cabal/bin:/c/ghcup/bin:$PATH"' >> /c/ghcup/env
 
-    - run: which mytool || echo "NOT FOUND!"
+        echo '. /c/ghcup/env' >> ~/.myenv
 
-    - run: MSYS2_PATH_TYPE=inherit echo "export PATH=\$PATH:/c/ghcup/bin" >> ~/.bash_profile
+        echo 'test -f ~/.myenv && . ~/.myenv' >> ~/.bash_profile
 
     - run: echo $PATH
 
