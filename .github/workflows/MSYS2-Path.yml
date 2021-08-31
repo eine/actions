@@ -1,0 +1,33 @@
+name: MSYS2-Path
+
+on: [push]
+
+jobs:
+
+  msys2:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+
+    - run: |
+        mkdir -p /c/ghcup/bin
+        echo '#!/usr/bin/env bash' > /c/ghcup/bin/mytool
+        echo 'echo HELLO' >> /c/ghcup/bin/mytool
+
+    - run: echo $PATH
+
+    - run: which mytool || echo "NOT FOUND!"
+
+    - run: MSYS2_PATH_TYPE=inherit echo "export PATH=\$PATH:/c/ghcup/bin" >> ~/.bash_profile
+
+    - run: echo $PATH
+
+    - run: which mytool || echo "NOT FOUND!"
+
+    - run: mytool
